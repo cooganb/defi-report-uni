@@ -1,0 +1,114 @@
+TODO Figure out a good cadence for blocks: need to do division and decide upon a series of blocks to track for each
+
+TODO grab loose, initial data to sanity check
+
+TODO figure out best way to structure data for the four pools 
+
+
+
+
+
+
+
+V1 DAI created at block 8939330
+
+blocks between 1102937
+
+V2 DAI deployed at block 10042267 
+
+blocks between 787064
+
+SushiSwap deployed at block 10829331
+
+blocks between 32343
+
+UNI token contract created at block 10861674
+
+
+
+V3 DAI created at block 12376022 (not totally sure about this bc not sure about contract)
+
+one day = roughly 6500 blocks
+one month = roughly 195000 blocks
+
+
+
+--API endpoints for each of the protocols:
+Uniswap V1:
+
+https://api.thegraph.com/subgraphs/name/ianlapham/uniswap
+
+Uniswap V2:
+
+https://api.thegraph.com/subgraphs/name/uniswap/uniswap-v2/graphql
+
+Uniswap V3:
+
+https://api.thegraph.com/subgraphs/name/uniswap/uniswap-v3/graphql
+
+Sushiswap:
+
+https://api.thegraph.com/subgraphs/name/uniswap/sushiswap/graphql
+
+
+--contracts:
+
+V1-ETH/DAI
+https://etherscan.io/address/0x2a1530c4c41db0b0b2bb646cb5eb1a67b7158667 
+
+V2-ETH/DAI
+https://etherscan.io/address/0xa478c2975ab1ea89e8196811f51a7b7ade33eb11
+
+sushiswap-ETH/DAI
+https://etherscan.io/address/0xc3d03e4f041fd4cd388c549ee2a29a9e5075882f
+
+V3-ETH/DAI
+https://etherscan.io/address/0xc2e9f25be6257c210d7adf0d4cd6e3e881ba25f8
+
+--V1 query looks like:
+
+  exchange(block: { number: 10610232 } id:"0x2a1530c4c41db0b0b2bb646cb5eb1a67b7158667"){
+    combinedBalanceInEth
+    combinedBalanceInUSD
+		tokenName
+    tokenBalance
+    ethBalance
+  }
+
+--V2 query looks something like:
+
+{
+  pair(block: { number: 10610232 } id:"0xa478c2975ab1ea89e8196811f51a7b7ade33eb11") {
+		reserveETH
+    reserveUSD
+    
+  }
+}
+
+
+--Sushiswap query looks like:
+
+{
+  pair(block: { number: 12610432 }, id:"0xc3d03e4f041fd4cd388c549ee2a29a9e5075882f"){
+    reserveETH
+    reserveUSD
+  }
+}
+
+--V3 looks like:
+
+(this one is a bit funny because totalValueLockedUSD and totalValueLocked don't work well for the pool as a whole but does work for individual tokens)
+
+pool(id:"0xc2e9f25be6257c210d7adf0d4cd6e3e881ba25f8"){
+    token0{
+      symbol
+      totalValueLocked
+      totalValueLockedUSD
+    }
+    token1{
+      symbol
+      totalValueLocked
+      totalValueLockedUSD
+    }
+    
+  }
