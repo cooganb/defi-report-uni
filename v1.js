@@ -99,9 +99,7 @@ async function handlePromise(blockNum) {
   let usd = json1.data.exchange.tokenBalance
   // console.log(json1.data.exchange.combinedBalanceInUSD)
   return [eth, usd]
-  // how to get each one
-  // passing it through same logic 
-  // how to write a csv
+
 }
 
 // handlePromise()
