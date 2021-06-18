@@ -13,7 +13,7 @@ var snapshots = [8939330, 9380504, 9601091, 9821678, 10042265, 10042267, 1023903
 var url = "https://api.thegraph.com/subgraphs/name/ianlapham/uniswap";
 
 
-var results = []
+var results = [['block','numOfEth','numOfDai']]
 async function series() {
   var snapshots = [8939330, 9380504, 9601091, 9821678, 10042265, 10042267, 10239033, 10435799,10632565, 10829331, 10829331, 10835799, 10842267, 10848735, 10855203, 10861671, 10861674, 11240261, 11618848, 11997435, 12376022, 12476022, 12576022, 12658888]
 
@@ -21,9 +21,10 @@ async function series() {
   for(i = 0;i < snapshots.length; i++){
     let ws = fs.createWriteStream("out.csv");
     var array = []
-    var price = await handlePromise(snapshots[i])
-    array.push(price)
+    var pairs = await handlePromise(snapshots[i])
     array.push(snapshots[i])
+    array.push(pairs[0])
+    array.push(pairs[1])
     results.push(array)
     fastcsv
       .write(results, { headers: true })
@@ -94,9 +95,10 @@ async function handlePromise(blockNum) {
   let promise1 = await fetch(url, opts);
   // console.log(promise1);
   let json1 = await promise1.json();
-  let combinedPrice = json1.data.exchange.combinedBalanceInUSD
+  let eth = json1.data.exchange.ethBalance
+  let usd = json1.data.exchange.tokenBalance
   // console.log(json1.data.exchange.combinedBalanceInUSD)
-  return combinedPrice
+  return [eth, usd]
   // how to get each one
   // passing it through same logic 
   // how to write a csv
