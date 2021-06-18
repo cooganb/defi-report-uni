@@ -1,4 +1,6 @@
 const fetch = require('node-fetch');
+const fastcsv = require('fast-csv');
+const fs = require('fs');
 
 
 // total blocks to snapshot:
@@ -6,24 +8,80 @@ const fetch = require('node-fetch');
 
 var snapshots = [8939330, 9380504, 9601091, 9821678, 10042265, 10042267, 10239033, 10435799,10632565, 10829331, 10829331, 10835799, 10842267, 10848735, 10855203, 10861671, 10861674, 11240261, 11618848, 11997435, 12376022, 12476022, 12576022, 12658888]
 
+
+
 var url = "https://api.thegraph.com/subgraphs/name/ianlapham/uniswap";
 
+
+var results = []
+async function series() {
+  var snapshots = [8939330, 9380504, 9601091, 9821678, 10042265, 10042267, 10239033, 10435799,10632565, 10829331, 10829331, 10835799, 10842267, 10848735, 10855203, 10861671, 10861674, 11240261, 11618848, 11997435, 12376022, 12476022, 12576022, 12658888]
+
+  // snapshots.forEach(handlePromise)
+  for(i = 0;i < snapshots.length; i++){
+    let ws = fs.createWriteStream("out.csv");
+    var array = []
+    var price = await handlePromise(snapshots[i])
+    array.push(price)
+    array.push(snapshots[i])
+    results.push(array)
+    fastcsv
+      .write(results, { headers: true })
+      .pipe(ws);
+  }
+
+
+
+
+  // create an array object with block and price
+  // for each block, get the combinedpriceUSD and block number and write to the json object
+  // write that json object to csv file
+
+}
 // 
 // iterator - forEach
-async function handlePromise() {
-  var snapshots = [8939330, 9380504, 9601091, 9821678, 10042265, 10042267, 10239033, 10435799,10632565, 10829331, 10829331, 10835799, 10842267, 10848735, 10855203, 10861671, 10861674, 11240261, 11618848, 11997435, 12376022, 12476022, 12576022, 12658888]
-  
+async function handlePromise(blockNum) {
+
+
+  // pluck from snapshot - n+1 till snapshot.length
+
+  var blockNum = blockNum.toString();
+
+  // convert to string 
+
+  // var blockNumString = blockNum.toString();
+
+  // form query
+  // pass through function
+
   var query = `
   query {
-    exchange(block: { number: 9380504} id:"0x2a1530c4c41db0b0b2bb646cb5eb1a67b7158667"){
-        combinedBalanceInEth
-        combinedBalanceInUSD
-        tokenName
-        tokenBalance
-        ethBalance
-      }
+    exchange(block: { number:` + blockNum + `}
+    id:"0x2a1530c4c41db0b0b2bb646cb5eb1a67b7158667"){
+      combinedBalanceInEth
+      combinedBalanceInUSD
+      tokenName
+      tokenBalance
+      ethBalance
+    }
   }
-`;
+  `;
+
+    // function does its thing and write somewhere
+
+
+//     // this query works
+//   var query = `
+//   query {
+//     exchange(block: { number: 9380504} id:"0x2a1530c4c41db0b0b2bb646cb5eb1a67b7158667"){
+//         combinedBalanceInEth
+//         combinedBalanceInUSD
+//         tokenName
+//         tokenBalance
+//         ethBalance
+//       }
+//   }
+// `;
 
   var opts = {
     method: "POST",
@@ -36,10 +94,16 @@ async function handlePromise() {
   let promise1 = await fetch(url, opts);
   // console.log(promise1);
   let json1 = await promise1.json();
-  console.log(json1.data.exchange.combinedBalanceInUSD)
+  let combinedPrice = json1.data.exchange.combinedBalanceInUSD
+  // console.log(json1.data.exchange.combinedBalanceInUSD)
+  return combinedPrice
+  // how to get each one
+  // passing it through same logic 
+  // how to write a csv
 }
 
-handlePromise()
+// handlePromise()
+series()
 
 
 // snapshots.forEach(element => {
