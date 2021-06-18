@@ -1,4 +1,6 @@
-var blockNum = 10610232;
+const fetch = require('node-fetch');
+
+var blockNum = 10829331;
 
 var query = `
   query {
@@ -9,7 +11,7 @@ var query = `
   }
 `;
 
-var url = "https://api.thegraph.com/subgraphs/name/uniswap/sushiswap/graphql";
+var url = "https://api.thegraph.com/subgraphs/name/sushiswap/exchange";
 
 var opts = {
   method: "POST",

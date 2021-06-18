@@ -1,3 +1,5 @@
+const fetch = require('node-fetch');
+
 var blockNum = 12647855;
 
 var query = `
@@ -26,5 +28,12 @@ const opts = {
 };
 fetch(url, opts)
   .then(res => res.json())
-  .then(console.log)
+  .then(
+    ({ data }) => {
+    // console.log("Token 0: " + data.pool.token0);
+    // console.log("Token 1: " + data.pool.token1)
+    console.log(data.pool.token0);
+    console.log(data.pool.token1)
+    }
+  )
   .catch(console.error);

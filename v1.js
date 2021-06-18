@@ -1,3 +1,5 @@
+const fetch = require('node-fetch');
+
 var blockNum = 10610232;
 
 var query = `

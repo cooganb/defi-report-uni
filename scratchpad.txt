@@ -12,19 +12,19 @@ TODO figure out best way to structure data for the four pools
 
 V1 DAI created at block 8939330
 
-blocks between 1102937
+blocks between 1102937 = 5 snapshots in this time
 
 V2 DAI deployed at block 10042267 
 
-blocks between 787064
+blocks between 787064 = 4 snapshots in this time
 
 SushiSwap deployed at block 10829331
 
-blocks between 32343
+blocks between 32343 = grab more frequent between here and there, maybe 5 again?
 
 UNI token contract created at block 10861674
 
-
+grab 5 between 10861674 and 12376022
 
 V3 DAI created at block 12376022 (not totally sure about this bc not sure about contract)
 

@@ -1,3 +1,5 @@
+const fetch = require('node-fetch');
+
 var blockNum = 10610232;
 
 var query = `
@@ -9,7 +11,7 @@ var query = `
   }
 `;
 
-const url = "https://api.thegraph.com/subgraphs/name/uniswap/uniswap-v2/graphql";
+const url = "https://api.thegraph.com/subgraphs/name/uniswap/uniswap-v2";
 
 const opts = {
   method: "POST",
