@@ -1,5 +1,8 @@
 const fetch = require('node-fetch');
 
+// total blocks to snapshot:
+var snapshot = [10829331, 10835799, 10842267, 10848735, 10855203, 10861671, 10861674, 11240261, 11618848, 11997435, 12376022, 12754609, 13133196, 13511783]
+
 var blockNum = 10829331;
 
 var query = `

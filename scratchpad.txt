@@ -14,19 +14,50 @@ V1 DAI created at block 8939330
 
 blocks between 1102937 = 5 snapshots in this time
 
+block snapshots:
+9159917
+9380504
+9601091
+9821678
+10042265
+
 V2 DAI deployed at block 10042267 
 
 blocks between 787064 = 4 snapshots in this time
+
+block snapshots:
+10239033
+10435799
+10632565
+10829331
 
 SushiSwap deployed at block 10829331
 
 blocks between 32343 = grab more frequent between here and there, maybe 5 again?
 
+block snapshots:
+10835799
+10842267
+10848735
+10855203
+10861671
+
 UNI token contract created at block 10861674
 
-grab 5 between 10861674 and 12376022
+grab 5 between 10861674 and 12376022 = 1514348
+
+block snapshots:
+11240261
+11618848
+11997435
+12376022
 
 V3 DAI created at block 12376022 (not totally sure about this bc not sure about contract)
+
+block snapshots:
+12754609
+13133196
+13511783
 
 one day = roughly 6500 blocks
 one month = roughly 195000 blocks
